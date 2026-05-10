@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Département Informatique - Efrei</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Open Sans', sans-serif; font-size: 16px; color: #222; background: #f5f5f5; }
+
+    /* ===== HEADER ===== */
+    header {
+      background-color: #0A316C;
+      padding: 15px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+    }
+
+    .logo-area img {
+      height: 50px;
+      width: 100px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+    }
+
+    .logo-area span {
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: #81ECEC; }
+    nav a.active { color: #FDCB6E; }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown > a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .dropdown-arrow {
+      font-size: 10px;
+      transition: transform 0.2s;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      background: #081f4b;
+      border-top: 2px solid #81ECEC;
+      min-width: 190px;
+      z-index: 100;
+      border-radius: 0 0 6px 6px;
+    }
+
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 13px;
+    }
+
+    .dropdown-menu a::before {
+      content: "▶";
+      font-size: 8px;
+      color: #81ECEC;
+    }
+
+    .dropdown-menu a:last-child { border-bottom: none; }
+
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      height: 520px;
+      /* ⚠️ REMPLACE par ton image : background-image: url('../img/efrei1.jpg'); */
+      background-image: url('../img/efrei1.jpg');
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,49,108,0.45);
+    }
+
+    .hero-content {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 8%;
+      transform: translateY(-50%);
+      color: white;
+      max-width: 520px;
+    }
+
+    .hero-content h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 42px;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      opacity: 0.9;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background: #FDCB6E;
+      color: #0A316C;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+
+    .hero-btn:hover { background: #f0b849; }
+
+    /* ===== CAROUSEL ===== */
+    .carousel-section {
+      background: #fff;
+      padding: 50px 40px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      color: #0A316C;
+      margin-bottom: 10px;
+    }
+
+    .section-line {
+      width: 50px;
+      height: 3px;
+      background: #81ECEC;
+      margin: 0 auto 30px;
+      border-radius: 2px;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-track img {
+      min-width: 80%;
+      height: 380px;
+      object-fit: cover;
+      background: #e0e0e0;
+    }
+
+    /* Placeholder couleur tant que les images ne sont pas là */
+    .carousel-track .slide-placeholder {
+      min-width: 100%;
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .slide-placeholder:nth-child(1) { background: #0A316C; }
+    .slide-placeholder:nth-child(2) { background: #1a4a8c; }
+    .slide-placeholder:nth-child(3) { background: #0d3d7c; }
+    .slide-placeholder:nth-child(4) { background: #143c78; }
+    .slide-placeholder:nth-child(5) { background: #0e3570; }
+    
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(10,49,108,0.7);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 5;
+      transition: background 0.2s;
+    }
+
+    .carousel-btn:hover { background: #0A316C; }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .carousel-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .carousel-dots span.active { background: #0A316C; }
+
+    /* ===== STATS ===== */
+    .stats-section {
+      background-color: #0A316C;
+      color: white;
+      padding: 50px 40px;
+      text-align: center;
+    }
+
+    .stats-section .section-title { color: white; }
+    .stats-section .section-line { background: #FDCB6E; }
+
+    .stats-grid {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .stat-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 38px;
+      color: #81ECEC;
+      margin-bottom: 6px;
+    }
+
+    .stat-card p {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 300;
+      opacity: 0.9;
+    }
+
+    /* ===== ACTUALITES ===== */
+    .news-section {
+      background: #f5f5f5;
+      padding: 50px 40px;
+      text-align: center;
+    }
+
+    .news-section .section-title { color: #0A316C; }
+
+    .news-grid {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 8px;
+      flex: 1;
+      min-width: 260px;
+      max-width: 320px;
+      text-align: left;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+      transition: box-shadow 0.2s;
+    }
+
+    .news-card:hover { box-shadow: 0 4px 18px rgba(10,49,108,0.12); }
+
+    .news-tag {
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      border-radius: 0 0 6px 0;
+    }
+
+    .news-tag.event { background: #FDCB6E; color: #0A316C; }
+    .news-tag.actu  { background: #81ECEC; color: #0A316C; }
+    .news-tag.jpo   { background: #0A316C; color: white; }
+
+    .news-body {
+      padding: 16px 18px 20px;
+    }
+
+    .news-date {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 6px;
+    }
+
+    .news-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      color: #0A316C;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .news-card p {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .news-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0A316C;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .news-link::after { content: " ▶"; font-size: 9px; }
+    .news-link:hover { color: #81ECEC; }
+
+    /* ===== ACCES RAPIDES ===== */
+    .links-section {
+      background: white;
+      padding: 50px 40px;
+      text-align: center;
+    }
+
+    .links-section .section-title { color: #0A316C; }
+
+    .links-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .link-box {
+      background: #FDCB6E;
+      color: #0A316C;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      padding: 20px 28px;
+      border-radius: 8px;
+      min-width: 160px;
+      transition: background 0.2s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .link-box:hover { background: #f0b849; transform: translateY(-2px); }
+
+    .link-box .link-icon {
+      font-size: 22px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #081f4b;
+      color: white;
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer nav {
+      gap: 20px;
+    }
+
+    footer nav a {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    footer nav a:hover { opacity: 1; color: #81ECEC; }
+
+    .footer-copy {
+      font-size: 12px;
+      opacity: 0.55;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: flex-start; }
+      nav { flex-wrap: wrap; gap: 14px; }
+      .hero-content h1 { font-size: 28px; }
+      .hero-content { left: 5%; max-width: 90%; }
+      .hero-img-zone { display: none; }
+      .stats-grid { flex-direction: column; align-items: center; }
+      .news-grid { flex-direction: column; align-items: center; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="logo-area">
+    <img src="../img/logoefrei.png" alt="Logo Efrei" width="100" height="50">
+    <div>
+      EFREI Paris
+      <span>Département Informatique</span>
+    </div>
+  </div>
+
+  <nav>
+    <div class="dropdown">
+      <a href="formations.html">
+        Formations
+        <span class="dropdown-arrow">▼</span>
+      </a>
+      <div class="dropdown-menu">
+        <a href="formation_pex.html">Bachelors</a>
+        <a href="formation_pge.html">Cycle Ingénieur</a>
+      </div>
+    </div>
+    <a href="enseignants.html">Enseignants</a>
+    <a href="etudiant.html">Vie étudiante</a>
+    <a href="contact.html">Contact</a>
+    <a href="apropos.html">À propos</a>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-img-zone"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <h1>Façonner les experts<br>du numérique de demain</h1>
+    <p>Le Département Informatique de l'Efrei forme des ingénieurs et experts prêts à relever les défis du monde digital.</p>
+    <a href="formations.html" class="hero-btn">Découvrir nos formations</a>
+  </div>
+</section>
+
+<!-- ===== CARROUSEL ===== -->
+<section class="carousel-section">
+  <h2 class="section-title">Notre campus en images</h2>
+  <div class="section-line"></div>
+
+  <div class="carousel-wrapper">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="slide-placeholder">
+        <img src="../img/efrei_1.jpg" alt="image une">
+      </div>
+      <div class="slide-placeholder">
+        <img src="../img/imgefrei2.jpg" alt="image deux">
+      </div>
+      <div class="slide-placeholder">
+        <img src="../img/imgefrei3.jpg" alt="image trois">
+      </div>
+      <div class="slide-placeholder">
+        <img src="../img/imgefrei4.jpg" alt="image quatre">
+      </div>
+      <div class="slide-placeholder">
+        <img src="../img/imgefrei5.jpg" alt="image cinq">
+      </div>
+    </div>
+
+    <button class="carousel-btn prev" onclick="moveCarousel(-1)">&#8249;</button>
+    <button class="carousel-btn next" onclick="moveCarousel(1)">&#8250;</button>
+  </div>
+
+  <div class="carousel-dots" id="carouselDots">
+    <span class="active" onclick="goToSlide(0)"></span>
+    <span onclick="goToSlide(1)"></span>
+    <span onclick="goToSlide(2)"></span>
+    <span onclick="goToSlide(3)"></span>
+    <span onclick="goToSlide(4)"></span>
+  </div>
+</section>
+
+<!-- ===== CHIFFRES CLES ===== -->
+<section class="stats-section">
+  <h2 class="section-title">Quelques chiffres</h2>
+  <div class="section-line"></div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>90</h3>
+      <p>Professeurs permanents</p>
+    </div>
+    <div class="stat-card">
+      <h3>5 800</h3>
+      <p>Étudiants</p>
+    </div>
+    <div class="stat-card">
+      <h3>2 000</h3>
+      <p>Entreprises partenaires</p>
+    </div>
+    <div class="stat-card">
+      <h3>17 200</h3>
+      <p>Alumni</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACTUALITES & EVENEMENTS ===== -->
+<section class="news-section">
+  <h2 class="section-title">Actualités &amp; Événements</h2>
+  <div class="section-line"></div>
+
+  <div class="news-grid">
+    <div class="news-card">
+      <span class="news-tag jpo">Portes ouvertes</span>
+      <div class="news-body">
+        <p class="news-date">Samedi 6 juin 2026</p>
+        <h3>Journée Portes Ouvertes — Campus de Villejuif</h3>
+        <p>Venez découvrir nos laboratoires, rencontrer les enseignants et les étudiants, et en savoir plus sur nos formations.</p>
+        <a href="https://www.efrei.fr/evenement/journees-portes-ouvertes/"  class="news-link">En savoir plus</a>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <span class="news-tag event">Conférence</span>
+      <div class="news-body">
+        <p class="news-date">Jeudi 22 mai 2026</p>
+        <h3>Program'Her</h3>
+        <p>Vous êtes lycéenne et vous vous interrogez sur votre orientation ? Venez découvrir le secteur du numérique !</p>
+        <a href="https://www.efrei.fr/evenement/programher/" class="news-link">Voir le programme</a>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <span class="news-tag actu">Actualité</span>
+      <div class="news-body">
+        <p class="news-date">Jeudi 30 avril 2026</p>
+        <h3>Tech & Research Xperience : au cœur de l’innovation et de la recherche</h3>
+        <p>Les 23 et 24 lors de l’Efrei Tech & Research Xperience à Villejuif, les étudiants ont passé deux jours à la découverte des enjeux de l’innovation et de la recherche.</p>
+        <a href="https://www.efrei.fr/article/tech-research-xperience-au-coeur-de-linnovation-et-de-la-recherche/" class="news-link">Lire l'article</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACCES RAPIDES ===== -->
+<section class="links-section">
+  <h2 class="section-title">Accès rapides</h2>
+  <div class="section-line"></div>
+
+  <div class="links-grid">
+    <a href="#" class="link-box">
+      <span class="link-icon">🎓</span>
+      Admissions
+    </a>
+    <a href="formations.html" class="link-box">
+      <span class="link-icon">📚</span>
+      Formations
+    </a>
+    <a href="contact.html" class="link-box">
+      <span class="link-icon">✉️</span>
+      Contact
+    </a>
+    <a href="etudiant.html" class="link-box">
+      <span class="link-icon">🏫</span>
+      Vie étudiante
+    </a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="logo-area">
+    <span style="font-size:13px; opacity:0.7;">© 2026 Efrei Paris — Département Informatique</span>
+  </div>
+
+  <nav>
+    <a href="apropos.html">À propos</a>
+    <a href="contact.html">Contact</a>
+    <a href="formations.html">Formations</a>
+    <a href="#">Mentions légales</a>
+  </nav>
+
+  <p class="footer-copy">Campus de Villejuif — Métro Ligne 7 &amp; 15</p>
+</footer>
+
+<!-- ===== JAVASCRIPT CARROUSEL ===== -->
+<script>
+  var current = 0;
+  var total = 5;
+
+  function updateCarousel() {
+    var track = document.getElementById('carouselTrack');
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    var dots = document.getElementById('carouselDots').children;
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].classList.remove('active');
+    }
+    dots[current].classList.add('active');
+  }
+
+  function moveCarousel(dir) {
+    current = (current + dir + total) % total;
+    updateCarousel();
+  }
+
+  function goToSlide(n) {
+    current = n;
+    updateCarousel();
+  }
+
+  /* Défilement automatique toutes les 4 secondes */
+  setInterval(function() {
+    moveCarousel(1);
+  }, 4000);
+</script>
+
+</body>
+</html>

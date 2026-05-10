@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formations — Département Informatique Efrei</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Open Sans', sans-serif; font-size: 16px; color: #222; background: #f5f5f5; }
+
+    /* HEADER */
+    header {
+      background-color: #0A316C;
+      padding: 15px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+    }
+    .logo-area img {
+      height: 50px;
+      width: 100px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+    }
+    .logo-area span {
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #81ECEC; }
+    nav a.active { color: #FDCB6E; }
+    .dropdown { position: relative; }
+    .dropdown > a { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+    .dropdown-arrow { font-size: 10px; transition: transform 0.2s; }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      background: #081f4b;
+      border-top: 2px solid #81ECEC;
+      min-width: 190px;
+      z-index: 100;
+      border-radius: 0 0 6px 6px;
+    }
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 13px;
+    }
+    .dropdown-menu a::before { content: "▶"; font-size: 8px; color: #81ECEC; }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+
+    /* HERO PAGE */
+    .page-hero {
+      background-color: #0A316C;
+      color: white;
+      padding: 60px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: rgba(129,236,236,0.07);
+    }
+    .page-hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 38px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .page-hero p {
+      font-size: 16px;
+      font-weight: 300;
+      opacity: 0.85;
+      max-width: 650px;
+      line-height: 1.7;
+    }
+    .breadcrumb { font-size: 13px; opacity: 0.6; margin-bottom: 14px; }
+    .breadcrumb a { color: #81ECEC; text-decoration: none; }
+
+    /* SECTIONS */
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      color: #0A316C;
+      margin-bottom: 10px;
+    }
+    .section-line {
+      width: 50px;
+      height: 3px;
+      background: #81ECEC;
+      margin-bottom: 30px;
+      border-radius: 2px;
+    }
+
+    /* PRÉSENTATION GÉNÉRALE */
+    .intro-section { background: white; padding: 60px 40px; }
+    .intro-grid {
+      display: flex;
+      gap: 50px;
+      align-items: flex-start;
+      max-width: 1100px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .intro-text { flex: 2; min-width: 280px; }
+    .intro-text p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #444;
+      margin-bottom: 16px;
+    }
+    .intro-sidebar {
+      flex: 1;
+      min-width: 220px;
+      background: #f5f5f5;
+      border-left: 4px solid #81ECEC;
+      padding: 24px 22px;
+      border-radius: 0 8px 8px 0;
+    }
+    .intro-sidebar h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: #0A316C;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+    .intro-sidebar ul { list-style: none; }
+    .intro-sidebar ul li {
+      font-size: 14px;
+      color: #444;
+      padding: 7px 0;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .intro-sidebar ul li::before { content: "▶"; font-size: 8px; color: #0A316C; }
+    .intro-sidebar ul li:last-child { border-bottom: none; }
+
+    /* TIMELINE */
+    .timeline-section {
+      background: #f5f5f5;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .timeline {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      max-width: 1000px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .timeline-step {
+      flex: 1;
+      min-width: 180px;
+      background: white;
+      border: 1px solid #e0e0e0;
+      padding: 28px 20px;
+      position: relative;
+      text-align: center;
+    }
+    .timeline-step:not(:last-child)::after {
+      content: "▶";
+      position: absolute;
+      right: -13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #0A316C;
+      font-size: 16px;
+      z-index: 2;
+      background: #f5f5f5;
+      padding: 2px;
+    }
+    .timeline-step:first-child { border-radius: 8px 0 0 8px; }
+    .timeline-step:last-child { border-radius: 0 8px 8px 0; }
+    .step-level {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #81ECEC;
+      background: #0A316C;
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .timeline-step h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      color: #0A316C;
+      margin-bottom: 8px;
+    }
+    .timeline-step p { font-size: 13px; color: #666; line-height: 1.5; }
+
+    /* CARTES PROGRAMMES */
+    .programs-section {
+      background: white;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .programs-grid {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .program-card {
+      flex: 1;
+      min-width: 280px;
+      max-width: 440px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: left;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .program-card:hover {
+      box-shadow: 0 6px 24px rgba(10,49,108,0.13);
+      transform: translateY(-3px);
+    }
+    .program-card-header {
+      background: #0A316C;
+      color: white;
+      padding: 28px 26px 22px;
+    }
+    .program-badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #0A316C;
+      background: #FDCB6E;
+      padding: 3px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .program-card-header h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .program-card-header p { font-size: 13px; opacity: 0.8; line-height: 1.5; }
+    .program-card-body { padding: 24px 26px; background: white; }
+    .program-card-body ul { list-style: none; margin-bottom: 22px; }
+    .program-card-body ul li {
+      font-size: 14px;
+      color: #444;
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .program-card-body ul li::before { content: "▶"; font-size: 8px; color: #81ECEC; }
+    .program-card-body ul li:last-child { border-bottom: none; }
+    .program-link {
+      display: inline-block;
+      background: #0A316C;
+      color: white;
+      padding: 11px 24px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+    .program-link:hover { background: #081f4b; }
+
+    /* FOOTER */
+    footer {
+      background: #081f4b;
+      color: white;
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    footer nav { gap: 20px; }
+    footer nav a { font-size: 13px; opacity: 0.8; }
+    footer nav a:hover { opacity: 1; color: #81ECEC; }
+    .footer-copy { font-size: 12px; opacity: 0.55; }
+
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: flex-start; }
+      nav { flex-wrap: wrap; gap: 14px; }
+      .page-hero h1 { font-size: 26px; }
+      .timeline { flex-direction: column; }
+      .timeline-step { border-radius: 8px; margin-bottom: 4px; }
+      .timeline-step:not(:last-child)::after { display: none; }
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #081f4b;
+      color: white;
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer nav {
+      gap: 20px;
+    }
+
+    footer nav a {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    footer nav a:hover { opacity: 1; color: #81ECEC; }
+
+    .footer-copy {
+      font-size: 12px;
+      opacity: 0.55;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+    <a href="../html/accueil.html">
+        <div class="logo-area">
+            <img src="../img/logoefrei.png" alt="Logo Efrei" width="100" height="50">
+            <div>EFREI Paris <span>Département Informatique</span></div>
+        </div>
+    </a>
+  <nav>
+    <div class="dropdown">
+      <a href="formations.html" class="active">Formations <span class="dropdown-arrow">▼</span></a>
+      <div class="dropdown-menu">
+        <a href="formation_pex.html">Bachelors</a>
+        <a href="formation_pge.html">Cycle Ingénieur</a>
+      </div>
+    </div>
+    <a href="enseignants.html">Enseignants</a>
+    <a href="etudiant.html">Vie étudiante</a>
+    <a href="contact.html">Contact</a>
+    <a href="apropos.html">À propos</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <p class="breadcrumb"><a href="index.html">Accueil</a> › Formations</p>
+  <h1>Nos Formations</h1>
+  <p>Du post-bac au cycle ingénieur, l'Efrei propose un parcours complet pour former les experts du numérique, avec des programmes allant du grade de licence jusqu'au diplôme d'ingénieur.</p>
+</section>
+
+<section class="intro-section">
+  <div class="intro-grid">
+    <div class="intro-text">
+      <h2 class="section-title">Présentation générale</h2>
+      <div class="section-line"></div>
+      <p>Le Département Informatique de l'Efrei offre un cursus progressif et cohérent, pensé pour accompagner chaque étudiant de ses premiers pas en informatique jusqu'à l'excellence de l'ingénierie numérique. Chaque étape du parcours est conçue pour construire des compétences solides, ancrées dans la réalité du marché.</p>
+      <p>Dès le post-bac, les <strong>Bachelors</strong> (Grade de licence) permettent d'acquérir en 3 ans une expertise opérationnelle dans des domaines ciblés : développement web, cybersécurité, intelligence artificielle. Ces formations sont disponibles en formation initiale ou en alternance, pour une professionnalisation rapide.</p>
+      <p>Le <strong>Cycle Ingénieur</strong> (5 ans après le bac, accessible aussi en admission parallèle) mène au diplôme d'ingénieur habilité CTI. Il propose plusieurs majeures de spécialisation en 4e et 5e année, permettant à chaque étudiant de se positionner précisément sur un secteur porteur : Data Science, Cybersécurité, Systèmes Embarqués, ou encore Information Technology.</p>
+      <p>L'ensemble des programmes combine cours théoriques, projets pratiques, stages en entreprise et interventions de professionnels, garantissant une insertion professionnelle rapide et durable.</p>
+    </div>
+    <div class="intro-sidebar">
+      <h3>En chiffres</h3>
+      <ul>
+        <li>95% d'insertion professionnelle</li>
+        <li>3 Bachelors disponibles</li>
+        <li>4 filières Cycle Ingénieur</li>
+        <li>Formation initiale &amp; alternance</li>
+        <li>Diplôme habilité CTI</li>
+        <li>120+ entreprises partenaires</li>
+        <li>Campus de Villejuif</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <h2 class="section-title">Votre parcours à l'Efrei</h2>
+  <div class="section-line" style="margin: 0 auto 36px;"></div>
+  <div class="timeline">
+    <div class="timeline-step">
+      <span class="step-level">Bac</span>
+      <h3>Terminale</h3>
+      <p>Candidature via Parcoursup ou Concours Puissance Alpha</p>
+    </div>
+    <div class="timeline-step">
+      <span class="step-level">Bac +1 à +3</span>
+      <h3>Bachelor</h3>
+      <p>Grade de licence — spécialisation en informatique</p>
+    </div>
+    <div class="timeline-step">
+      <span class="step-level">Bac +3 à +5</span>
+      <h3>Cycle Ingénieur</h3>
+      <p>Majeures de spécialisation — Diplôme d'ingénieur CTI</p>
+    </div>
+    <div class="timeline-step">
+      <span class="step-level">Bac +5</span>
+      <h3>Diplôme Ingénieur</h3>
+      <p>Insertion professionnelle ou poursuite en doctorat</p>
+    </div>
+  </div>
+</section>
+
+<section class="programs-section">
+  <h2 class="section-title">Choisissez votre programme</h2>
+  <div class="section-line" style="margin: 0 auto 36px;"></div>
+  <div class="programs-grid">
+
+    <div class="program-card">
+      <div class="program-card-header">
+        <span class="program-badge">Bac +1 → +3</span>
+        <h2>Bachelors</h2>
+        <p>Grade de licence — 3 ans — Formation initiale ou alternance</p>
+      </div>
+      <div class="program-card-body">
+        <ul>
+          <li>Informatique — Grade de licence</li>
+          <li>Cybersécurité &amp; Réseaux</li>
+          <li>Développeur Web &amp; IA</li>
+          <li>Modalités initiale &amp; alternance</li>
+          <li>Accès via Parcoursup</li>
+        </ul>
+        <a href="formation_pex.html" class="program-link">Découvrir les Bachelors</a>
+      </div>
+    </div>
+
+    <div class="program-card">
+      <div class="program-card-header">
+        <span class="program-badge">Bac +1 → +5</span>
+        <h2>Cycle Ingénieur</h2>
+        <p>Diplôme d'ingénieur habilité CTI — 5 ans — Majeures en 4e &amp; 5e année</p>
+      </div>
+      <div class="program-card-body">
+        <ul>
+          <li>Information Technology (Logiciels &amp; SI)</li>
+          <li>Data Science</li>
+          <li>Sécurité &amp; Réseaux</li>
+          <li>Systèmes Embarqués</li>
+          <li>Projets de fin d'études &amp; stages</li>
+        </ul>
+        <a href="formation_pge.html" class="program-link">Découvrir le Cycle Ingénieur</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span style="font-size:13px; opacity:0.7;">© 2026 Efrei Paris — Département Informatique</span>
+  <nav>
+    <a href="apropos.html">À propos</a>
+    <a href="contact.html">Contact</a>
+    <a href="formations.html">Formations</a>
+    <a href="#">Mentions légales</a>
+  </nav>
+  <p class="footer-copy">Campus de Villejuif — Métro Ligne 7 &amp; 15</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bachelors — Département Informatique Efrei</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Open Sans', sans-serif; font-size: 16px; color: #222; background: #f5f5f5; }
+
+    /* HEADER */
+    header {
+      background-color: #0A316C;
+      padding: 15px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .logo-area {
+      display: flex; align-items: center; gap: 12px;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+    }
+    .logo-area img {
+      height: 50px; width: 100px; object-fit: contain;
+      background: rgba(255,255,255,0.15); border-radius: 4px;
+    }
+    .logo-area span {
+      display: block; font-family: 'Open Sans', sans-serif;
+      font-size: 13px; font-weight: 300;
+      letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85;
+    }
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a { color: white; text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: 0.5px; transition: color 0.2s; }
+    nav a:hover { color: #81ECEC; }
+    nav a.active { color: #FDCB6E; }
+    .dropdown { position: relative; }
+    .dropdown > a { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+    .dropdown-arrow { font-size: 10px; transition: transform 0.2s; }
+    .dropdown-menu {
+      display: none; position: absolute; top: calc(100% + 12px); left: 0;
+      background: #081f4b; border-top: 2px solid #81ECEC;
+      min-width: 190px; z-index: 100; border-radius: 0 0 6px 6px;
+    }
+    .dropdown-menu a { display: flex; align-items: center; gap: 8px; padding: 11px 18px; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 13px; }
+    .dropdown-menu a::before { content: "▶"; font-size: 8px; color: #81ECEC; }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+
+    /* HERO */
+    .page-hero {
+      background-color: #0A316C;
+      color: white;
+      padding: 60px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::after {
+      content: ""; position: absolute; right: -60px; top: -60px;
+      width: 350px; height: 350px; border-radius: 50%;
+      background: rgba(129,236,236,0.07);
+    }
+    .page-hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 38px; text-transform: uppercase;
+      letter-spacing: 2px; margin-bottom: 12px;
+    }
+    .page-hero p { font-size: 16px; font-weight: 300; opacity: 0.85; max-width: 650px; line-height: 1.7; }
+    .breadcrumb { font-size: 13px; opacity: 0.6; margin-bottom: 14px; }
+    .breadcrumb a { color: #81ECEC; text-decoration: none; }
+
+    /* SECTION TITLES */
+    .section-title { font-family: 'Montserrat', sans-serif; font-size: 28px; color: #0A316C; margin-bottom: 10px; }
+    .section-line { width: 50px; height: 3px; background: #81ECEC; margin-bottom: 30px; border-radius: 2px; }
+
+    /* OBJECTIFS */
+    .objectifs-section { background: white; padding: 60px 40px; }
+    .objectifs-inner { max-width: 1100px; margin: 0 auto; }
+    .objectifs-grid {
+      display: flex; gap: 24px; flex-wrap: wrap; margin-top: 10px;
+    }
+    .objectif-card {
+      flex: 1; min-width: 220px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 24px 20px;
+      border-top: 3px solid #0A316C;
+    }
+    .objectif-card .icon { font-size: 28px; margin-bottom: 12px; }
+    .objectif-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px; color: #0A316C;
+      margin-bottom: 8px;
+    }
+    .objectif-card p { font-size: 14px; color: #555; line-height: 1.6; }
+
+    /* PROGRAMMES BACHELORS TABS */
+    .programmes-section { background: #f5f5f5; padding: 60px 40px; }
+    .programmes-inner { max-width: 1100px; margin: 0 auto; }
+
+    .tabs {
+      display: flex; gap: 4px; margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: white;
+      border: 1px solid #ddd;
+      border-bottom: none;
+      padding: 12px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #555;
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+      transition: background 0.15s, color 0.15s;
+    }
+    .tab-btn:hover { background: #e8f0fb; color: #0A316C; }
+    .tab-btn.active { background: #0A316C; color: white; border-color: #0A316C; }
+
+    .tab-panel {
+      display: none;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 0 8px 8px 8px;
+      padding: 34px 32px;
+    }
+    .tab-panel.active { display: block; }
+
+    .panel-header { margin-bottom: 24px; }
+    .panel-badge {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; color: #0A316C;
+      background: #FDCB6E;
+      padding: 3px 12px; border-radius: 20px;
+      display: inline-block; margin-bottom: 10px;
+    }
+    .panel-header h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px; color: #0A316C; margin-bottom: 6px;
+    }
+    .panel-header p { font-size: 14px; color: #666; line-height: 1.6; }
+
+    .matieres-grid {
+      display: flex; gap: 14px; flex-wrap: wrap; margin: 20px 0 28px;
+    }
+    .matiere-pill {
+      background: #e8f0fb;
+      color: #0A316C;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid #b5cef4;
+    }
+    .matiere-pill.highlight {
+      background: #0A316C;
+      color: #81ECEC;
+      border-color: #0A316C;
+    }
+
+    .panel-cols { display: flex; gap: 30px; flex-wrap: wrap; }
+    .panel-col { flex: 1; min-width: 200px; }
+    .panel-col h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #0A316C;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #81ECEC;
+    }
+    .panel-col ul { list-style: none; }
+    .panel-col ul li {
+      font-size: 14px; color: #444;
+      padding: 6px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .panel-col ul li::before { content: "▶"; font-size: 8px; color: #81ECEC; }
+    .panel-col ul li:last-child { border-bottom: none; }
+
+    /* MODALITES */
+    .modalites-section { background: white; padding: 60px 40px; }
+    .modalites-inner { max-width: 1100px; margin: 0 auto; }
+    .modalites-grid { display: flex; gap: 24px; flex-wrap: wrap; }
+    .modalite-card {
+      flex: 1; min-width: 260px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .modalite-header {
+      background: #0A316C;
+      color: white;
+      padding: 20px 24px;
+    }
+    .modalite-header h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px; margin-bottom: 4px;
+    }
+    .modalite-header p { font-size: 13px; opacity: 0.8; }
+    .modalite-body { padding: 22px 24px; }
+    .modalite-body ul { list-style: none; }
+    .modalite-body ul li {
+      font-size: 14px; color: #444;
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .modalite-body ul li::before { content: "▶"; font-size: 8px; color: #FDCB6E; }
+    .modalite-body ul li:last-child { border-bottom: none; }
+
+    /* DEBOUCHES */
+    .debouches-section { background: #0A316C; padding: 60px 40px; text-align: center; }
+    .debouches-section .section-title { color: white; }
+    .debouches-section .section-line { background: #FDCB6E; margin: 0 auto 36px; }
+    .debouches-grid {
+      display: flex; gap: 18px; flex-wrap: wrap;
+      justify-content: center; max-width: 1000px; margin: 0 auto;
+    }
+    .debouche-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(129,236,236,0.25);
+      border-radius: 8px;
+      padding: 22px 20px;
+      flex: 1; min-width: 180px; max-width: 220px;
+      color: white;
+      transition: background 0.2s;
+    }
+    .debouche-card:hover { background: rgba(255,255,255,0.14); }
+    .debouche-card .job-icon { font-size: 26px; margin-bottom: 10px; }
+    .debouche-card h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px; color: #81ECEC;
+      margin-bottom: 6px;
+    }
+    .debouche-card p { font-size: 12px; opacity: 0.75; line-height: 1.5; }
+
+    /* CTA */
+    .cta-section { background: #f5f5f5; padding: 50px 40px; text-align: center; }
+    .cta-btn {
+      display: inline-block;
+      background: #FDCB6E;
+      color: #0A316C;
+      font-weight: 700; font-size: 15px;
+      padding: 14px 36px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin: 8px;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover { background: #f0b849; }
+    .cta-btn.secondary {
+      background: #0A316C; color: white;
+    }
+    .cta-btn.secondary:hover { background: #081f4b; }
+    .cta-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px; color: #0A316C;
+      margin-bottom: 10px;
+    }
+    .cta-section p { font-size: 15px; color: #555; margin-bottom: 24px; }
+
+    /* FOOTER */
+    footer {
+      background: #081f4b; color: white;
+      padding: 28px 40px;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    footer nav { gap: 20px; }
+    footer nav a { font-size: 13px; opacity: 0.8; }
+    footer nav a:hover { opacity: 1; color: #81ECEC; }
+    .footer-copy { font-size: 12px; opacity: 0.55; }
+
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: flex-start; }
+      nav { flex-wrap: wrap; gap: 14px; }
+      .page-hero h1 { font-size: 26px; }
+      .tabs { flex-direction: column; gap: 4px; }
+      .tab-btn { border-radius: 6px; border: 1px solid #ddd; }
+      .tab-panel { border-radius: 8px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #081f4b;
+      color: white;
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer nav {
+      gap: 20px;
+    }
+
+    footer nav a {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    footer nav a:hover { opacity: 1; color: #81ECEC; }
+
+    .footer-copy {
+      font-size: 12px;
+      opacity: 0.55;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <img src="../img/logoefrei.png" alt="Logo Efrei" width="100" height="50">
+    <div>EFREI Paris <span>Département Informatique</span></div>
+  </div>
+  <nav>
+    <div class="dropdown">
+      <a href="formations.html" class="active">Formations <span class="dropdown-arrow">▼</span></a>
+      <div class="dropdown-menu">
+        <a href="formation_pex.html">Bachelors</a>
+        <a href="formation_pge.html">Cycle Ingénieur</a>
+      </div>
+    </div>
+    <a href="enseignants.html">Enseignants</a>
+    <a href="etudiant.html">Vie étudiante</a>
+    <a href="contact.html">Contact</a>
+    <a href="apropos.html">À propos</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <p class="breadcrumb"><a href="index.html">Accueil</a> › <a href="formations.html">Formations</a> › Bachelors</p>
+  <h1>Bachelors Informatique</h1>
+  <p>Des formations professionnalisantes de 3 ans accessibles dès le bac, en formation initiale ou en alternance, pour acquérir rapidement une expertise reconnue dans les métiers du numérique.</p>
+</section>
+
+<!-- OBJECTIFS -->
+<section class="objectifs-section">
+  <div class="objectifs-inner">
+    <h2 class="section-title">Objectifs de la formation</h2>
+    <div class="section-line"></div>
+    <p style="color:#444; font-size:16px; line-height:1.8; max-width:800px; margin-bottom:32px;">
+      Les Bachelors du Département Informatique de l'Efrei forment des professionnels directement opérationnels, capables de répondre aux besoins des entreprises dans les domaines du développement, de la cybersécurité et de l'intelligence artificielle. L'objectif est de combiner une solide base théorique avec une pratique intensive en projets réels.
+    </p>
+    <div class="objectifs-grid">
+      <div class="objectif-card">
+        <div class="icon">🎯</div>
+        <h3>Expertise technique</h3>
+        <p>Maîtriser les outils et langages actuels du marché : Python, JavaScript, SQL, réseaux, cloud et sécurité.</p>
+      </div>
+      <div class="objectif-card">
+        <div class="icon">🤝</div>
+        <h3>Travail en équipe</h3>
+        <p>Développer des compétences en gestion de projet agile, communication et collaboration en environnement professionnel.</p>
+      </div>
+      <div class="objectif-card">
+        <div class="icon">🚀</div>
+        <h3>Insertion rapide</h3>
+        <p>Avec 95% d'insertion professionnelle, nos diplômés intègrent directement des postes à responsabilité dès la fin du Bachelor.</p>
+      </div>
+      <div class="objectif-card">
+        <div class="icon">🔄</div>
+        <h3>Adaptabilité</h3>
+        <p>Former des professionnels capables d'évoluer dans un secteur en constante mutation grâce à une pédagogie basée sur l'innovation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMMES DÉTAILLÉS -->
+<section class="programmes-section">
+  <div class="programmes-inner">
+    <h2 class="section-title">Programme détaillé</h2>
+    <div class="section-line"></div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('info')">Informatique</button>
+      <button class="tab-btn" onclick="showTab('cyber')">Cybersécurité &amp; Réseaux</button>
+      <button class="tab-btn" onclick="showTab('webai')">Développeur Web &amp; IA</button>
+    </div>
+
+    <!-- TAB 1 : Informatique -->
+    <div class="tab-panel active" id="tab-info">
+      <div class="panel-header">
+        <span class="panel-badge">Grade de licence</span>
+        <h3>Bachelor Informatique</h3>
+        <p>Une formation généraliste et solide en informatique, couvrant le développement, les bases de données, les réseaux et les systèmes — idéale pour ceux qui souhaitent une polyvalence maximale avant une éventuelle poursuite en cycle ingénieur.</p>
+      </div>
+      <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#0A316C; margin-bottom:12px;">Matières principales</h4>
+      <div class="matieres-grid">
+        <span class="matiere-pill highlight">Développement Web &amp; Mobile</span>
+        <span class="matiere-pill highlight">Bases de données</span>
+        <span class="matiere-pill highlight">Systèmes &amp; Réseaux</span>
+        <span class="matiere-pill">Algorithmique</span>
+        <span class="matiere-pill">Programmation orientée objet</span>
+        <span class="matiere-pill">Linux &amp; Administration</span>
+        <span class="matiere-pill">Mathématiques pour l'informatique</span>
+        <span class="matiere-pill">Gestion de projet</span>
+      </div>
+      <div class="panel-cols">
+        <div class="panel-col">
+          <h4>Année 1</h4>
+          <ul>
+            <li>Fondamentaux de la programmation</li>
+            <li>Architecture des ordinateurs</li>
+            <li>HTML / CSS / JavaScript</li>
+            <li>Introduction aux bases de données SQL</li>
+            <li>Mathématiques appliquées</li>
+          </ul>
+        </div>
+        <div class="panel-col">
+          <h4>Année 2</h4>
+          <ul>
+            <li>Développement back-end (Python, Java)</li>
+            <li>Frameworks web (Vue.js, Node.js)</li>
+            <li>Bases de données avancées</li>
+            <li>Administration systèmes Linux</li>
+            <li>Introduction aux réseaux</li>
+          </ul>
+        </div>
+        <div class="panel-col">
+          <h4>Année 3</h4>
+          <ul>
+            <li>Projet de développement complet</li>
+            <li>Cloud Computing (AWS/Azure)</li>
+            <li>Virtualisation &amp; conteneurs</li>
+            <li>Stage en entreprise (3 mois min.)</li>
+            <li>Soutenance de projet</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2 : Cybersécurité -->
+    <div class="tab-panel" id="tab-cyber">
+      <div class="panel-header">
+        <span class="panel-badge">Grade de licence</span>
+        <h3>Bachelor Cybersécurité &amp; Réseaux</h3>
+        <p>Une formation spécialisée pour répondre à la forte demande en experts de la sécurité informatique et de l'administration réseau. Les étudiants apprennent à sécuriser les infrastructures, analyser les menaces et répondre aux incidents.</p>
+      </div>
+      <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#0A316C; margin-bottom:12px;">Matières principales</h4>
+      <div class="matieres-grid">
+        <span class="matiere-pill highlight">Cybersécurité</span>
+        <span class="matiere-pill highlight">Systèmes &amp; Réseaux</span>
+        <span class="matiere-pill highlight">Bases de données</span>
+        <span class="matiere-pill">Ethical Hacking</span>
+        <span class="matiere-pill">Cryptographie</span>
+        <span class="matiere-pill">Forensique numérique</span>
+        <span class="matiere-pill">Protocoles réseau (TCP/IP)</span>
+        <span class="matiere-pill">SIEM &amp; SOC</span>
+      </div>
+      <div class="panel-cols">
+        <div class="panel-col">
+          <h4>Année 1</h4>
+          <ul>
+            <li>Fondamentaux des réseaux</li>
+            <li>Protocoles TCP/IP, DNS, HTTP</li>
+            <li>Linux avancé</li>
+            <li>Introduction à la sécurité</li>
+            <li>Scripting Bash &amp; Python</li>
+          </ul>
+        </div>
+        <div class="panel-col">
+          <h4>Année 2</h4>
+          <ul>
+            <li>Ethical Hacking &amp; Pentest</li>
+            <li>Cryptographie appliquée</li>
+            <li>Firewall, VPN, DMZ</li>
+            <li>Active Directory &amp; GPO</li>
+            <li>CTF (Capture The Flag)</li>
+          </ul>
+        </div>
+        <div class="panel-col">
+          <h4>Année 3</h4>
+          <ul>
+            <li>Incident response</li>
+            <li>SIEM &amp; Threat Intelligence</li>
+            <li>Forensique numérique</li>
+            <li>Stage en entreprise (4 mois min.)</li>
+            <li>Certification préparatoire (CompTIA...)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3 : Web & IA -->
+    <div class="tab-panel" id="tab-webai">
+      <div class="panel-header">
+        <span class="panel-badge">Grade de licence</span>
+        <h3>Bachelor Développeur Web &amp; IA</h3>
+        <p>La formation la plus innovante du portefeuille, combinant développement web full-stack et intelligence artificielle. Les étudiants apprennent à concevoir des applications intelligentes, connectées et prêtes pour les défis de demain.</p>
+      </div>
+      <h4 style="font-family:'Montserrat',sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#0A316C; margin-bottom:12px;">Matières principales</h4>
+      <div class="matieres-grid">
+        <span class="matiere-pill highlight">Développement Web &amp; Mobile</span>
+        <span class="matiere-pill highlight">IA &amp; Machine Learning</span>
+        <span class="matiere-pill highlight">Bases de données</span>
+        <span class="matiere-pill">Deep Learning</span>
+        <span class="matiere-pill">API REST &amp; GraphQL</span>
+        <span class="matiere-pill">React / Angular</span>
+        <span class="matiere-pill">Data Engineering</span>
+        <span class="matiere-pill">Déploiement cloud</span>
+      </div>
+      <div class="panel-cols">
+        <div class="panel-col">
+          <h4>Année 1</h4>
+          <ul>
+            <li>HTML, CSS, JavaScript ES6+</li>
+            <li>Python pour la data science</li>
+            <li>SQL &amp; bases NoSQL</li>
+            <li>Statistiques &amp; probabilités</li>
+            <li>UX / UI Design</li>
+          </ul>
+        </div>
+        <div class="panel-col">
+          <h4>Année 2</h4>
+          <ul>
+            <li>Machine Learning (Scikit-learn)</li>
+            <li>Développement React.js</li>
+            <li>Node.js &amp; API REST</li>
+            <li>Traitement du langage naturel</li>
+            <li>Visualisation de données</li>
+          </ul>
+        </div>
+        <div class="panel-col">
+          <h4>Année 3</h4>
+          <ul>
+            <li>Deep Learning (TensorFlow/PyTorch)</li>
+            <li>Application web IA complète</li>
+            <li>MLOps &amp; déploiement cloud</li>
+            <li>Stage en entreprise (4 mois min.)</li>
+            <li>Soutenance de projet IA</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MODALITÉS -->
+<section class="modalites-section">
+  <div class="modalites-inner">
+    <h2 class="section-title">Modalités d'accès</h2>
+    <div class="section-line"></div>
+    <div class="modalites-grid">
+
+      <div class="modalite-card">
+        <div class="modalite-header">
+          <h3>Formation initiale</h3>
+          <p>Cours en présentiel à plein temps</p>
+        </div>
+        <div class="modalite-body">
+          <ul>
+            <li>Durée : 3 ans (180 ECTS)</li>
+            <li>Rythme : cours du lundi au vendredi</li>
+            <li>Stage obligatoire chaque année</li>
+            <li>Accès via Parcoursup (post-bac)</li>
+            <li>Admissions parallèles en 2e année</li>
+            <li>Campus de Villejuif</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modalite-card">
+        <div class="modalite-header">
+          <h3>Alternance</h3>
+          <p>Formation en apprentissage ou contrat pro</p>
+        </div>
+        <div class="modalite-body">
+          <ul>
+            <li>Durée : 3 ans (180 ECTS)</li>
+            <li>Rythme : 3 jours entreprise / 2 jours école</li>
+            <li>Rémunération pendant la formation</li>
+            <li>Frais de scolarité pris en charge par l'OPCO</li>
+            <li>Réseau de 120+ entreprises partenaires</li>
+            <li>Disponible dès la 1re année</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DÉBOUCHÉS -->
+<section class="debouches-section">
+  <h2 class="section-title">Débouchés professionnels</h2>
+  <div class="section-line"></div>
+  <div class="debouches-grid">
+    <div class="debouche-card">
+      <div class="job-icon">💻</div>
+      <h4>Développeur Full-stack</h4>
+      <p>Conception et développement d'applications web complètes, front et back.</p>
+    </div>
+    <div class="debouche-card">
+      <div class="job-icon">🛡️</div>
+      <h4>Analyste Cybersécurité</h4>
+      <p>Protection des systèmes, analyse des menaces et réponse aux incidents.</p>
+    </div>
+    <div class="debouche-card">
+      <div class="job-icon">🖥️</div>
+      <h4>Administrateur Systèmes</h4>
+      <p>Gestion et maintien des infrastructures informatiques et réseaux.</p>
+    </div>
+    <div class="debouche-card">
+      <div class="job-icon">📊</div>
+      <h4>Data Analyst</h4>
+      <p>Analyse et exploitation des données pour la prise de décision.</p>
+    </div>
+    <div class="debouche-card">
+      <div class="job-icon">🤖</div>
+      <h4>Développeur IA</h4>
+      <p>Conception et déploiement de modèles d'intelligence artificielle.</p>
+    </div>
+    <div class="debouche-card">
+      <div class="job-icon">🔧</div>
+      <h4>Consultant SI</h4>
+      <p>Accompagnement des entreprises dans leurs projets de transformation digitale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Prêt à rejoindre un Bachelor ?</h2>
+  <p>Candidatez via Parcoursup ou contactez notre équipe pour en savoir plus sur les admissions parallèles et l'alternance.</p>
+  <a href="contact.html" class="cta-btn">Nous contacter</a>
+  <a href="formations.html" class="cta-btn secondary">Voir tous les programmes</a>
+</section>
+
+<footer>
+  <span style="font-size:13px; opacity:0.7;">© 2026 Efrei Paris — Département Informatique</span>
+  <nav>
+    <a href="apropos.html">À propos</a>
+    <a href="contact.html">Contact</a>
+    <a href="formations.html">Formations</a>
+    <a href="#">Mentions légales</a>
+  </nav>
+  <p class="footer-copy">Campus de Villejuif — Métro Ligne 7 &amp; 15</p>
+</footer>
+
+<script>
+  function showTab(id) {
+    var panels = document.querySelectorAll('.tab-panel');
+    var btns = document.querySelectorAll('.tab-btn');
+    panels.forEach(function(p) { p.classList.remove('active'); });
+    btns.forEach(function(b) { b.classList.remove('active'); });
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
